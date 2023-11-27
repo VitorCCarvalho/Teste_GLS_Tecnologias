@@ -1,0 +1,160 @@
+<div class="page">
+  <p class="display-4 text-center mt-5">Página de Cadastro</p>
+
+<form [formGroup]="formPessoa" (ngSubmit)="onSubmit()">
+
+  <div class="d-flex flex-column">
+
+    <div class="border border-1 rounded p-3 mt-2 mb-3">
+      <h1 class="text-center">Informações Pessoais</h1>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Nome Completo</label>
+        <input class="form-control" type="text" formControlName="name" />
+      </div>
+
+      <div class="form-group mb-3">
+        <label>Data de Nascimento</label>
+        <input class="form-control" type="date" formControlName="birth" />
+      </div>
+
+      <div class="form-group mb-3">
+        <div>Gênero</div>
+        <select class="form-select" formControlName="gender">
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <div>Estado Civil</div>
+        <select class="form-select" aria-label="Estado Civil" formControlName="civil_state">
+          <option value="Solteiro">Solteiro</option>
+          <option value="Casado">Casado</option>
+          <option value="Divorciado">Divorciado</option>
+          <option value="Viúvo">Viúvo</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label>Nacionalidade</label>
+        <input class="form-control" type="text" formControlName="nacionality" />
+      </div>
+    </div>
+
+    <div class="border border-1 rounded p-3 mt-2 mb-3">
+      <h1 class="text-center">Contato</h1>
+      <div class="form-group mb-3">
+        <label>Endereço Residencial</label>
+        <input class="form-control" type="text" formControlName="address" />
+      </div>
+
+      <div class="form-group mb-3">
+        <label>Número de Telefone</label>
+        <input class="form-control" type="text" [inputMask]="telephoneMask" formControlName="telephone" />
+      </div>
+
+      <div class="form-group mb-3">
+        <label>Endereço de E-mail</label>
+        <input class="form-control" type="text" [inputMask]="emailMask" placeholder="_@_._" formControlName="email" />
+      </div>
+    </div>
+  </div>
+    
+
+
+  <div class="border border-1 rounded p-3 mt-2 mb-3">
+    <h1 class="text-center">Documentação</h1>
+    <div class="form-group mb-3">
+      <label>Número de Identidade</label>
+      <input class="form-control" type="text" formControlName="rg" [inputMask]="rgMask" placeholder="__.___.___-_"/>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Cadastro de Pessoa Física</label>
+      <input class="form-control" type="text" formControlName="cpf" [inputMask]="cpfMask" placeholder="___.___.___-__"/>
+    </div>
+    <div class="form-group mb-3">
+      <label>Número de Passaporte</label>
+      <input class="form-control" type="text" formControlName="passport" maxlength="8" placeholder=""/>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Carteira de Motorista (CNH)</label>
+      <input class="form-control" type="text" formControlName="cnh" />
+    </div>
+  </div>
+
+  <div class="border border-1 rounded p-3 mt-2 mb-3">
+    <h1 class="text-center">Informações de Residência</h1>
+    <div class="form-group mb-3">
+      <label>CEP</label>
+      <input class="form-control" type="text" [inputMask]="cepMask" placeholder="_____-___" formControlName="cep" />
+    </div>
+
+
+    <div class="form-group mb-3">
+      <label>Logradouro</label>
+      <input class="form-control" type="text" formControlName="public_place" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Bairro</label>
+      <input class="form-control" type="text" formControlName="neighbourhood" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Cidade</label>
+      <input class="form-control" type="text" formControlName="city" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Estado</label>
+      <input class="form-control" type="text" formControlName="state" />
+    </div>
+  </div>
+
+  <div class="border border-1 rounded p-3 mt-2 mb-3">
+    <h1 class="text-center">Emprego e Educação</h1>
+    <div class="form-group mb-3">
+      <label>Renda</label>
+      <input class="form-control" type="text" [inputMask]="incomeMask" placeholder="R$ 0,00" formControlName="income" />
+    </div>
+
+    <div class="form-group mb-3">
+      <div>Histórico de Crédito</div>
+      <select class="form-select" formControlName="credit">
+        <option value="Bom">Bom</option>
+        <option value="Regular">Regular</option>
+        <option value="Ruim">Ruim</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Conta Bancária</label>
+      <input class="form-control" type="number" formControlName="account" />
+    </div>
+  </div>
+
+  <div class="border border-1 rounded p-3 mt-2 mb-3">
+    <h1 class="text-center">Emergência</h1>
+
+    <div class="form-group mb-3">
+      <label>Contato de Emergência</label>
+      <input class="form-control" type="text" formControlName="emergency" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Informações Médicas Relevantes</label>
+      <input class="form-control" type="text" formControlName="medical" />
+    </div>
+
+  </div>
+  <div class="text-center mb-3">
+    <input type="submit" class="btn btn-success btn-lg" value="Salvar Dados" />
+  </div>
+  
+</form>
+
+</div>
