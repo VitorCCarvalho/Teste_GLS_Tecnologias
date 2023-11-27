@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import { Pessoa } from './pessoa'
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Cep } from './cep'
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { createMask } from '@ngneat/input-mask';
 
 
@@ -26,10 +27,20 @@ export class AddPessoaComponent {
     this.http = http
     this.formBuilder = new FormBuilder()
     this.formPessoa = this.createForm(new Pessoa())
+
     this.getLocalStorage()
     this.createMasks()
     this.formPessoa.controls['cep'].valueChanges.subscribe(res => {
       this.checkCEP(res)
+    })
+  }
+
+  getLocalStorage() {
+    let arrayControls = Object.keys(this.formPessoa.value)
+    arrayControls.forEach((key) => {
+      if (localStorage.getItem(key) != null) {
+        this.formPessoa.controls[key].setValue(localStorage.getItem(key))
+      }
     })
   }
 
@@ -51,6 +62,24 @@ export class AddPessoaComponent {
     })
   }
 
+  fillInAddress(cep: Cep){
+    this.formPessoa.controls['public_place'].setValue(cep.logradouro)
+    this.formPessoa.controls['neighbourhood'].setValue(cep.bairro)
+    this.formPessoa.controls['city'].setValue(cep.localidade)
+    this.formPessoa.controls['state'].setValue(cep.uf)
+  }
+
+  checkCEP(cep : string) {
+    if (cep.length == 9) {
+      let strCep = cep.replace('-', '')
+      this.http.get<Cep>('https://viacep.com.br/ws/' + strCep + '/json/').subscribe(result => {
+
+      this.fillInAddress(result)
+
+      }, error => console.error(error));
+    }
+  }
+
   checkDone() {
     const arrayControls = Object.keys(this.formPessoa.value)
 
@@ -69,28 +98,13 @@ export class AddPessoaComponent {
     return check
   }
 
-  checkCEP(cep : string) {
-    if (cep.length == 9) {
-      let strCep = cep.replace('-', '')
-      this.http.get<any>('https://viacep.com.br/ws/' + strCep + '/json/').subscribe(result => {
-        console.log(result)
-
-        this.formPessoa.controls['public_place'].setValue(result['logradouro'])
-        this.formPessoa.controls['neighbourhood'].setValue(result['bairro'])
-        this.formPessoa.controls['city'].setValue(result['localidade'])
-        this.formPessoa.controls['state'].setValue(result['uf'])
-
-      }, error => console.error(error));
-    }
-  }
-
   onSubmit() {
-    if (this.checkDone()) {
+    if (!this.checkDone()) {
       localStorage.clear();
       let masks = ['telephone', 'email', 'rg', 'cpf', 'cep']
 
       const arrayControls = Object.keys(this.formPessoa.value)
-      arrayControls.forEach((key, value) => {
+      arrayControls.forEach((key) => {
         if (masks.includes(key)) {
           localStorage.setItem(key, this.formPessoa.value[key])
         }
@@ -100,15 +114,6 @@ export class AddPessoaComponent {
       alert("Por favor preencher todos os dados necessários")
     }
     
-  }
-
-  getLocalStorage() {
-    let arrayControls = Object.keys(this.formPessoa.value)
-    arrayControls.forEach((key, value) => {
-      if (localStorage.getItem(key) != null) {
-        this.formPessoa.controls[key].setValue(localStorage.getItem(key))
-      }
-    })
   }
   
 
@@ -140,16 +145,4 @@ export class AddPessoaComponent {
 
     return formG;
   }
-}
-
-
-
-interface gender {
-  value: number;
-  viewValue: String
-}
-
-interface civil_state {
-  value: number;
-  viewValue: String
 }
