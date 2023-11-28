@@ -1,4 +1,4 @@
-# ClientApp
+# Teste para GLS Tecnologias
  Página feita para um teste de dev frontend em Angular para a empresa GLS Tecnologias
 
 ## Como executar
