@@ -106,7 +106,7 @@ export class AddPessoaComponent {
   }
 
   onSubmit() {
-    if (!this.checkDone()) {
+    if (this.checkDone()) {
       localStorage.clear();
 
       const arrayControls = Object.keys(this.formPessoa.value)
