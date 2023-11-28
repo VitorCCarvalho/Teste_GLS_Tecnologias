@@ -4,7 +4,6 @@ import { Pessoa } from './pessoa'
 import { Cep } from './cep'
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { createMask } from '@ngneat/input-mask';
-import { TextFormComponent } from '../text-form/text-form.component'
 
 
 @Component({
@@ -52,7 +51,7 @@ export class AddPessoaComponent {
   createMasks() {
     this.telephoneMask = createMask({ mask: '(99) [9] 9999-9999', removeMaskOnSubmit: true })
     this.emailMask = createMask({ alias: 'email', removeMaskOnSubmit: true })
-    this.rgMask = createMask({ mask: '999.999.999-99', removeMaskOnSubmit: true })
+    this.rgMask = createMask({ mask: '99.999.999-9', removeMaskOnSubmit: true })
     this.cpfMask = createMask({ mask: '999.999.999-99', removeMaskOnSubmit: true })
     this.cepMask = createMask({ mask: '99999-999', removeMaskOnSubmit: true })
 
@@ -107,13 +106,17 @@ export class AddPessoaComponent {
 
   onSubmit() {
     if (this.checkDone()) {
-      localStorage.clear();
-
-      const arrayControls = Object.keys(this.formPessoa.value)
-      arrayControls.forEach((key) => {
-
+      try{
+        const arrayControls = Object.keys(this.formPessoa.value)
+        arrayControls.forEach((key) => {
         localStorage.setItem(key, this.formPessoa.value[key])
-      })
+        })
+        alert("Dados salvos no LocalStorage")
+      } catch(e){
+        alert("Ocorreu um erro, por favor alertar os desenvolvedores.")
+      }
+
+      
     } else {
       alert("Por favor preencher todos os dados necessários")
     }

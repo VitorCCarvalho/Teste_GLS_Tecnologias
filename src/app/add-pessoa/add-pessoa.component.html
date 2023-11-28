@@ -37,9 +37,9 @@
   <div class="border border-2 rounded p-3 mt-2 mb-3">
     <h1 class="text-center">Documentação</h1>
 
-    <app-text-form [parentForm]="formPessoa" [label]="'Número de Identidade'" [formName]="'rg'"></app-text-form>
+    <app-text-form [parentForm]="formPessoa" [label]="'Número de Identidade'" [formName]="'rg'" [placeholder]="'__.___.___-_'" [inputMask]="rgMask"></app-text-form>
 
-    <app-text-form [parentForm]="formPessoa" [label]="'Cadastro de Pessoa Física'" [formName]="'cpf'"></app-text-form>
+    <app-text-form [parentForm]="formPessoa" [label]="'Cadastro de Pessoa Física'" [formName]="'cpf'" [placeholder]="'___.___.___-__'" [inputMask]="cpfMask"></app-text-form>
 
     <app-text-form [parentForm]="formPessoa" [label]="'Número de Passaporte'" [formName]="'passport'" [placeholder]="'(Opcional)'"></app-text-form>
 
@@ -65,7 +65,7 @@
   <div class="border border-2 rounded p-3 mt-2 mb-3">
     <h1 class="text-center">Emprego e Educação</h1>
 
-    <app-text-form [parentForm]="formPessoa" [label]="'Renda'" [formName]="'income'"></app-text-form>
+    <app-text-form [parentForm]="formPessoa" [label]="'Renda'" [formName]="'income'" [placeholder]="'R$ 0,00'" [inputMask]="incomeMask"></app-text-form>
 
     <app-select-form [parentForm]="formPessoa" [label]="'Histórico de Crédito'" [formName]="'credit'" [optionArray]="opt_credit"></app-select-form>
 
