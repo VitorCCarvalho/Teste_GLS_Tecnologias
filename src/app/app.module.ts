@@ -8,11 +8,17 @@ import { AppComponent } from './app.component';
 import { AddPessoaComponent } from './add-pessoa/add-pessoa.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputMaskModule } from '@ngneat/input-mask';
+import { TextFormComponent } from './text-form/text-form.component';
+import { DateFormComponent } from './date-form/date-form.component';
+import { SelectFormComponent } from './select-form/select-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddPessoaComponent,
+    TextFormComponent,
+    DateFormComponent,
+    SelectFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

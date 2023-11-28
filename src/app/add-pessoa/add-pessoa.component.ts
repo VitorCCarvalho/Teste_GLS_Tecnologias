@@ -4,6 +4,7 @@ import { Pessoa } from './pessoa'
 import { Cep } from './cep'
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { createMask } from '@ngneat/input-mask';
+import { TextFormComponent } from '../text-form/text-form.component'
 
 
 @Component({
@@ -15,6 +16,10 @@ export class AddPessoaComponent {
   http: HttpClient
   formPessoa: FormGroup
   formBuilder: FormBuilder
+
+  opt_gender: string[] = ['Masculino', 'Feminino', 'Outro']
+  opt_civil_state: string[] = ['Solteiro', 'Casado', 'Divorciado', 'Viúvo']
+  opt_credit: string[] = ['Bom', 'Regular', 'Ruim']
 
   telephoneMask: any
   emailMask: any
@@ -70,8 +75,10 @@ export class AddPessoaComponent {
   }
 
   checkCEP(cep : string) {
-    if (cep.length == 9) {
-      let strCep = cep.replace('-', '')
+    let strCep = cep.replace('_', '')
+    
+    if (strCep.length == 9) {
+      strCep = strCep.replace('-', '')
       this.http.get<Cep>('https://viacep.com.br/ws/' + strCep + '/json/').subscribe(result => {
 
       this.fillInAddress(result)
@@ -101,13 +108,10 @@ export class AddPessoaComponent {
   onSubmit() {
     if (!this.checkDone()) {
       localStorage.clear();
-      let masks = ['telephone', 'email', 'rg', 'cpf', 'cep']
 
       const arrayControls = Object.keys(this.formPessoa.value)
       arrayControls.forEach((key) => {
-        if (masks.includes(key)) {
-          localStorage.setItem(key, this.formPessoa.value[key])
-        }
+
         localStorage.setItem(key, this.formPessoa.value[key])
       })
     } else {

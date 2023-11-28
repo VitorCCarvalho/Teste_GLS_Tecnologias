@@ -1,0 +1,8 @@
+<div class="form-group mb-3" [formGroup]="parentForm">
+    <label class="form-label" >{{label}}</label>
+    <input class="form-control" type="text" 
+    [formControlName]="formName"
+    [placeholder]="placeholder?placeholder :''"
+    [inputMask]="inputMask?inputMask :''"
+    />
+</div>

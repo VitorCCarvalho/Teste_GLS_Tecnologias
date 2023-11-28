@@ -1,0 +1,6 @@
+<div class="form-group mb-3" [formGroup]="parentForm">
+    <div>{{label}}</div>
+    <select class="form-select" [formControlName]="formName">
+      <option *ngFor="let optValue of optionArray" [value]="optValue">{{optValue}}</option>
+    </select>
+</div>
